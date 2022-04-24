@@ -40,5 +40,5 @@ jobs:
 
     # Push NuGet packages
     - name: Push to Nuget
-    - run: dotnet nuget push ./package/*.nupkg --source https://nuget.pkg.github.com/DonSagiv/index.json --api-key ${{ secrets.PACKAGE_PAT }}
+      run: dotnet nuget push ./package/*.nupkg --source https://nuget.pkg.github.com/DonSagiv/index.json --api-key ${{ secrets.PACKAGE_PAT }}
         
