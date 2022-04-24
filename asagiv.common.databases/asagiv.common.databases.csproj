@@ -1,8 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6</TargetFramework>
+		<Nullable>enable</Nullable>
+		<PackageId>asagiv.common.databases</PackageId>
+		<Version>0.0.2</Version>
+		<Authors>Ari Sagiv</Authors>
+		<Company>Ari Sagiv</Company>
+		<PackageDescription>This is Ari's Common Database Code</PackageDescription>
+		<RepositoryUrl>https://github.com/DonSagiv/asagiv.common</RepositoryUrl>
+	</PropertyGroup>
 
 </Project>

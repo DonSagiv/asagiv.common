@@ -17,7 +17,7 @@ namespace asagiv.common.mongodb
         #endregion
 
         #region Constructor
-        public MongoDbEntityBase(MongoDbCollectionBase<TDbModel> collection, ObjectId id, string label = "")
+        protected MongoDbEntityBase(MongoDbCollectionBase<TDbModel> collection, ObjectId id, string label = "")
         {
             Id = id;
             Label = label;

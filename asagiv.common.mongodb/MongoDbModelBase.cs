@@ -1,6 +1,7 @@
 ﻿using asagiv.common.databases;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace asagiv.common.mongodb
 {
@@ -9,12 +10,15 @@ namespace asagiv.common.mongodb
         #region Properties
         [BsonId]
         public ObjectId Id { get; set; }
+        [BsonExtraElements]
+        public IDictionary<string, object> ExtraElements { get; set; }
         #endregion
 
         #region Constructor
-        public MongoDbModelBase()
+        protected MongoDbModelBase()
         {
-            Id = new ObjectId();
+            Id = ObjectId.GenerateNewId();
+            ExtraElements = new Dictionary<string, object>();
         }
         #endregion
     }

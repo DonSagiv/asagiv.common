@@ -1,6 +1,8 @@
 ﻿using asagiv.common.databases;
+using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -12,7 +14,7 @@ namespace asagiv.common.mongodb
         where TDbModel : class, IDbModel<ObjectId>
     {
         #region Fields
-        public IMongoCollection<TDbModel>? _mongoCollection;
+        private readonly IMongoCollection<TDbModel>? _mongoCollection;
         #endregion
 
         #region Properties
@@ -40,7 +42,9 @@ namespace asagiv.common.mongodb
 
             var filter = Builders<TDbModel>.Filter.Where(x => x.Id == modelToAdd.Id);
 
-            await _mongoCollection.FindOneAndReplaceAsync(filter, modelToAdd);
+            var options = new FindOneAndReplaceOptions<TDbModel> { IsUpsert = true };
+
+            await _mongoCollection.FindOneAndReplaceAsync(filter, modelToAdd, options);
         }
 
         public async Task<TDbModel?> DeleteAsync(ObjectId id)
@@ -57,6 +61,18 @@ namespace asagiv.common.mongodb
             return deletedData;
         }
 
+        public async Task DeleteManyAsync(params ObjectId[] idList)
+        {
+            if (_mongoCollection == null)
+            {
+                return;
+            }
+
+            var filter = Builders<TDbModel>.Filter.In(x => x.Id, idList);
+
+            await _mongoCollection.DeleteManyAsync(filter);
+        }
+
         public async Task<TDbModel?> ReadAsync(ObjectId id)
         {
             if (_mongoCollection == null)
@@ -69,14 +85,26 @@ namespace asagiv.common.mongodb
             return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async IAsyncEnumerable<TDbModel?> ReadManyAsync(IEnumerable<ObjectId> idList, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TDbModel?>?> ReadManyAsync(IEnumerable<ObjectId>? idList = null)
+        {
+            if (_mongoCollection == null)
+            {
+                return null;
+            }
+
+            var filter = GetReadManyFilter(idList);
+
+            return await _mongoCollection.Find(filter).ToListAsync();
+        }
+
+        public async IAsyncEnumerable<TDbModel?> GetEnumerable(IEnumerable<ObjectId>? idList = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             if (_mongoCollection == null)
             {
                 yield break;
             }
 
-            var filter = Builders<TDbModel>.Filter.In(x => x.Id, idList);
+            var filter = GetReadManyFilter(idList);
 
             var cursor = await _mongoCollection.Find(filter).ToCursorAsync(cancellationToken);
 
@@ -94,6 +122,18 @@ namespace asagiv.common.mongodb
                     yield return item;
                 }
             }
+        }
+
+        public IMongoQueryable<TDbModel> AsQueryable()
+        {
+            return _mongoCollection.AsQueryable();
+        }
+
+        private static FilterDefinition<TDbModel> GetReadManyFilter(IEnumerable<ObjectId>? idList)
+        {
+            return idList == null
+                ? Builders<TDbModel>.Filter.Exists(x => x.Id)
+                : Builders<TDbModel>.Filter.In(x => x.Id, idList);
         }
         #endregion
     }

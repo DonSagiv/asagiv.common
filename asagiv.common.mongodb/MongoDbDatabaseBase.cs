@@ -16,7 +16,7 @@ namespace asagiv.common.mongodb
         #endregion
 
         #region Constructor
-        public MongoDbDatabaseBase(MongoDbClientBase client, string databaseName)
+        protected MongoDbDatabaseBase(MongoDbClientBase client, string databaseName)
         {
             _mongoDatabase = client.GetMongoDatabase(databaseName);
 

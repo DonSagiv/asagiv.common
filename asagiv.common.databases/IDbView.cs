@@ -14,6 +14,6 @@ namespace asagiv.common.databases
         where TDbModel : class, IDbModel<TDatabaseIdentifier>
     {
         Task<TDbModel?> ReadAsync(TDatabaseIdentifier id);
-        IAsyncEnumerable<TDbModel?> ReadManyAsync(IEnumerable<TDatabaseIdentifier> idList, CancellationToken cancellationToken = default);
+        IAsyncEnumerable<TDbModel?> GetEnumerable(IEnumerable<TDatabaseIdentifier> idList, CancellationToken cancellationToken = default);
     }
 }

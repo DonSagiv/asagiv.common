@@ -11,9 +11,14 @@ namespace asagiv.common.mongodb
         #endregion
 
         #region Methods
-        public Task ConnectAsync(string connectionString)
+        public void Connect(string connectionString)
         {
             _client = new MongoClient(connectionString);
+        }
+
+        public Task ConnectAsync(string connectionString)
+        {
+            Connect(connectionString);
 
             return Task.CompletedTask;
         }
