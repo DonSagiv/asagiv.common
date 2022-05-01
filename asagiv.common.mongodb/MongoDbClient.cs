@@ -21,17 +21,27 @@ namespace asagiv.common.mongodb
         #region Constructors
         public MongoDbClient(IConfiguration configuration, ILogger? logger = null)
         {
-            _connectionString = configuration.GetConnectionString("MongoDB");
-
-            if (string.IsNullOrWhiteSpace(_connectionString))
-            {
-                throw new Exception("Could not find connedction string for MongoDB in appsettings.json");
-            }
-
             _logger = logger;
 
-            if(_connectionString != null)
+            var environmentConnectionString = Environment.GetEnvironmentVariable("MONGO_CONN_STR");
+
+            if (!string.IsNullOrWhiteSpace(environmentConnectionString))
             {
+                _logger?.Information("Mongo connection environment variable found: {MongoConnStr}", environmentConnectionString);
+
+                Connect(environmentConnectionString);
+            }
+            else
+            {
+                _connectionString = configuration.GetConnectionString("MongoDB");
+
+                if (string.IsNullOrWhiteSpace(_connectionString))
+                {
+                    throw new Exception("Could not find connedction string for MongoDB in appsettings.json");
+                }
+
+                _logger?.Information("Using appsettings.json connection string: {MongoConnStr}", _connectionString);
+
                 Connect(_connectionString);
             }
         }
@@ -51,6 +61,8 @@ namespace asagiv.common.mongodb
             catch (Exception ex)
             {
                 _logger?.Error(ex, "Unable to connnect to MongoDB via {connectionString}.", connectionString);
+
+                throw;
             }
         }
 

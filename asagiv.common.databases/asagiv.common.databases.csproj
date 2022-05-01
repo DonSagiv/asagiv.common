@@ -4,7 +4,10 @@
 		<TargetFramework>net6</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageId>asagiv.common.databases</PackageId>
-		<VersionPrefix>0.0.3</VersionPrefix>
+		<Version>0.0.4</Version>
+		<!-- 
+		<VersionPrefix>0.0.4</VersionPrefix>
+		-->
 		<Authors>Ari Sagiv</Authors>
 		<Company>Ari Sagiv</Company>
 		<PackageDescription>This is Ari's Common Database Code</PackageDescription>

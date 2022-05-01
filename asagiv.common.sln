@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32203.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.common", "asagiv.common\asagiv.common.csproj", "{A7E9EB87-8EFE-4125-8A7C-2A21F3D40D28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.common", "asagiv.common\asagiv.common.csproj", "{A7E9EB87-8EFE-4125-8A7C-2A21F3D40D28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.common.mongodb", "asagiv.common.mongodb\asagiv.common.mongodb.csproj", "{7BAD27B2-5BE7-40B0-AC8A-8B965D2C1CD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.common.mongodb", "asagiv.common.mongodb\asagiv.common.mongodb.csproj", "{7BAD27B2-5BE7-40B0-AC8A-8B965D2C1CD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.common.databases", "asagiv.common.databases\asagiv.common.databases.csproj", "{0635F824-8A26-4A0A-B2ED-D3A61B7522B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.common.databases", "asagiv.common.databases\asagiv.common.databases.csproj", "{0635F824-8A26-4A0A-B2ED-D3A61B7522B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F743C48C-A3C2-4E17-AA1C-57FBCFC92E52}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
