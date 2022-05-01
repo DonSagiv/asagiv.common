@@ -26,6 +26,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    # Set current date time to environemnt variable.
+    - name: Set Date Time Variable
+      id: date
+      run: echo "::set-output name=date::$(date +%y%m%d_%H%M%S)"
+
     # Restore all dependencies
     - name: Restore dependencies
       run: dotnet restore
@@ -36,7 +41,7 @@ jobs:
 
     # Pack NuGet packages with Release configuration
     - name: Pack
-      run: dotnet pack --no-restore --configuration Release -o:package
+      run: dotnet pack --no-restore --configuration Release -o:package --version-suffix ${{ steps.date.outputs.date }}
 
     # Push NuGet packages
     - name: Push to Nuget
