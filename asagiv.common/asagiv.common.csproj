@@ -4,7 +4,7 @@
 		<TargetFramework>net6</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageId>asagiv.common</PackageId>
-		<Version>0.0.2</Version>
+		<Version>0.0.3</Version>
 		<Authors>Ari Sagiv</Authors>
 		<Company>Ari Sagiv</Company>
 		<PackageDescription>This is Ari's Common Code</PackageDescription>
