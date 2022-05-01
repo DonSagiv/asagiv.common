@@ -2,7 +2,9 @@
 {
     public interface IDbDatabase
     {
-        public string DatabaseName { get; }
-        public IDbClient Client { get; }
+        #region Properties
+        string DatabaseName { get; }
+        IDbClient Client { get; }
+        #endregion
     }
 }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
+using Serilog;
 
 namespace asagiv.common.mongodb
 {
@@ -14,110 +16,134 @@ namespace asagiv.common.mongodb
         where TDbModel : class, IDbModel<ObjectId>
     {
         #region Fields
-        private readonly IMongoCollection<TDbModel>? _mongoCollection;
+        private readonly ILogger? _logger;
         #endregion
 
         #region Properties
+        public IMongoCollection<TDbModel>? MongoCollection { get; }
         public IDbDatabase Database { get; }
         public string ViewName { get; }
         #endregion
 
         #region Constructor
-        protected MongoDbCollectionBase(MongoDbDatabaseBase mongoDbDatabase, string viewName)
+        protected MongoDbCollectionBase(IDbDatabase database, string viewName, ILogger? logger = null)
         {
-            _mongoCollection = mongoDbDatabase.GetMongoView<TDbModel>(viewName);
+            if(database is not MongoDbDatabase mongoDbDatabase)
+            {
+                throw new ArgumentException("Incorrect IDbDatabase type. Expected type is MongoDbDatabase.");
+            }
+
+            if (mongoDbDatabase.MongoDatabase is null)
+            {
+                throw new ArgumentException("MongoDatabase is not available.");
+            }
+
+            _logger = logger;
 
             ViewName = viewName;
-            Database = mongoDbDatabase;
+            Database = database;
+
+            _logger?.Information("Initializing MongoDB Collection {ViewName} in {Database}", ViewName, Database.DatabaseName);
+
+            MongoCollection = mongoDbDatabase.MongoDatabase?.GetCollection<TDbModel>(viewName);
         }
         #endregion
 
         #region Methods
         public async Task AppendAsync(TDbModel modelToAdd)
         {
-            if (_mongoCollection == null)
+            if (MongoCollection == null)
             {
-                return;
+                throw new NullReferenceException("MongoCollection reference not found.");
             }
+
+            _logger?.Information($"Appending {modelToAdd.Id} from {ViewName}");
 
             var filter = Builders<TDbModel>.Filter.Where(x => x.Id == modelToAdd.Id);
 
             var options = new FindOneAndReplaceOptions<TDbModel> { IsUpsert = true };
 
-            await _mongoCollection.FindOneAndReplaceAsync(filter, modelToAdd, options);
+            await MongoCollection.FindOneAndReplaceAsync(filter, modelToAdd, options);
         }
 
         public async Task<TDbModel?> DeleteAsync(ObjectId id)
         {
-            if (_mongoCollection == null)
-            {
-                return null;
-            }
+            _logger?.Information("Deleting {Id} from {ViewName}.", id, ViewName);
 
             var filter = Builders<TDbModel>.Filter.Where(x => x.Id == id);
 
-            var deletedData = await _mongoCollection.FindOneAndDeleteAsync(filter);
+            var deletedData = await MongoCollection.FindOneAndDeleteAsync(filter);
 
             return deletedData;
         }
 
         public async Task DeleteManyAsync(params ObjectId[] idList)
         {
-            if (_mongoCollection == null)
+            if (idList.Length == 0)
             {
                 return;
             }
 
+            var loggerString = string.Join(", ", idList);
+
+            _logger?.Information("Deleting {LoggerString} from {ViewName}.", loggerString, ViewName);
+
             var filter = Builders<TDbModel>.Filter.In(x => x.Id, idList);
 
-            await _mongoCollection.DeleteManyAsync(filter);
+            var result = await MongoCollection.DeleteManyAsync(filter);
         }
 
         public async Task<TDbModel?> ReadAsync(ObjectId id)
         {
-            if (_mongoCollection == null)
-            {
-                return null;
-            }
+            _logger?.Information("Retrieving {Id} from {ViewName}.", id, ViewName);
 
             var filter = Builders<TDbModel>.Filter.Where(x => x.Id == id);
 
-            return await _mongoCollection.Find(filter).FirstOrDefaultAsync();
+            return await MongoCollection.Find(filter).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<TDbModel?>?> ReadManyAsync(IEnumerable<ObjectId>? idList = null)
         {
-            if (_mongoCollection == null)
+            if(idList is null)
             {
-                return null;
+                _logger?.Information("Retrieving all items from {ViewName}.", ViewName);
+            }
+            else
+            {
+                var loggerString = string.Join(", ", idList);
+
+                _logger?.Information("Retrieving {loggerString} from {ViewName}.", loggerString, ViewName);
             }
 
             var filter = GetReadManyFilter(idList);
 
-            return await _mongoCollection.Find(filter).ToListAsync();
+            return await MongoCollection.Find(filter).ToListAsync();
         }
 
         public async IAsyncEnumerable<TDbModel?> GetEnumerable(IEnumerable<ObjectId>? idList = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            if (_mongoCollection == null)
-            {
-                yield break;
-            }
+            _logger?.Information("Retrieving Enumerable from {ViewName}.", ViewName);
 
             var filter = GetReadManyFilter(idList);
 
-            var cursor = await _mongoCollection.Find(filter).ToCursorAsync(cancellationToken);
+            var cursor = await MongoCollection.Find(filter).ToCursorAsync(cancellationToken);
 
             while (await cursor.MoveNextAsync(cancellationToken))
             {
                 var currentBatch = cursor.Current;
 
+                _logger?.Debug("Retrieved {CursorCount} items in batch from {ViewName}.", cursor.Current.Count(), ViewName);
+
                 foreach (var item in currentBatch)
                 {
                     if (cancellationToken.IsCancellationRequested)
                     {
+                        _logger?.Information("Enumerable Retrieval from {ViewName}: Cancellation Invoked.", ViewName);
+
                         yield break;
                     }
+
+                    _logger?.Debug("Retrieved {Id} from {ViewName}.", item.Id, ViewName);
 
                     yield return item;
                 }
@@ -126,7 +152,9 @@ namespace asagiv.common.mongodb
 
         public IMongoQueryable<TDbModel> AsQueryable()
         {
-            return _mongoCollection.AsQueryable();
+            _logger?.Information("Retrieving {ViewName} Queryable.", ViewName);
+
+            return MongoCollection.AsQueryable();
         }
 
         private static FilterDefinition<TDbModel> GetReadManyFilter(IEnumerable<ObjectId>? idList)

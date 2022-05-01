@@ -1,82 +1,37 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System;
-using System.IO;
+using Serilog.Events;
+using Serilog.Formatting.Json;
 
 namespace asagiv.common.Logging
 {
     public static class LoggerFactory
     {
         #region Statics
-        private const string outputTemplate = "{Level:u} {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt} [{ThreadId}] {Message}{NewLine}{Exception}";
+        private const string consoleOutputTemplate = "{Level:u} {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt} [{ThreadId}] {Message}{NewLine}{Exception}";
+        private const string jsonOutputTemplate = "{ Level : {Level:u}, TimeStamp : {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt}, Thread : {ThreadId}, Message : {Message}, Exception : {Exception}},{NewLine}";
         #endregion
 
-        public static ILogger CreateLogger(string logFilePath)
+        #region Methods
+        public static void UseSerilog(this IServiceCollection serviceCollection)
         {
-            var config = InitializeConfig();
+            var loggerConfiguration = InitializeConfig()
+                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate)
+                .WriteTo.File(new JsonFormatter(), "Logs/log-.json", rollingInterval: RollingInterval.Day);
 
-            config = GetLogPathDirectory(logFilePath, config);
-
-            var logger = config.CreateLogger();
-
-            logger.Information($"Logger Initialized. ({DateTime.Now.ToLongDateString()})");
-
-            return logger;
-        }
-
-        public static ILogger CreateLoggerWindows(IServiceProvider serviceProvider)
-        {
-            string logPath = null;
-
-            if (serviceProvider.GetService(typeof(IConfiguration)) is IConfiguration configuration)
-            {
-                var appDataRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                var appDataFolder = Path.Combine(appDataRoot, "asagiv_datapush");
-
-                var logPathRaw = configuration.GetSection("LogFileSinkPath").Value;
-
-                logPath = logPathRaw.Replace("{appdata}", appDataFolder);
-            }
-
-            var config = InitializeConfig();
-
-#if DEBUG
-            config = config.WriteTo.Console(outputTemplate: outputTemplate);
-#endif
-
-            config = GetLogPathDirectory(logPath, config);
-
-            var logger = config.CreateLogger();
-
-            logger.Information($"Logger Initialized. ({DateTime.Now.ToLongDateString()})");
-
-            return logger;
+            serviceCollection.AddSingleton<ILogger>(loggerConfiguration.CreateLogger());
         }
 
         private static LoggerConfiguration InitializeConfig()
         {
             return new LoggerConfiguration()
                 .MinimumLevel.Information()
+                .Enrich.WithEnvironmentName()
+                .Enrich.WithEnvironmentUserName()
+                .Enrich.WithMachineName()
                 .Enrich.WithThreadId();
         }
-
-        private static LoggerConfiguration GetLogPathDirectory(string logPath, LoggerConfiguration config)
-        {
-            if (!string.IsNullOrWhiteSpace(logPath))
-            {
-                var logDirectory = Path.GetDirectoryName(logPath);
-
-                if (!Directory.Exists(logDirectory))
-                {
-                    Directory.CreateDirectory(logDirectory);
-                }
-
-                config = config.WriteTo.File(logPath,
-                    rollingInterval: RollingInterval.Day,
-                    outputTemplate: outputTemplate);
-            }
-
-            return config;
-        }
+        #endregion
     }
 }
