@@ -10,6 +10,7 @@ namespace asagiv.common.Logging
     {
         #region Statics
         private const string consoleOutputTemplate = "{Level:u} {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt} [{ThreadId}] {Message}{NewLine}{Exception}";
+        private const string jsonOutputTemplate = "{ Level : {Level:u}, TimeStamp : {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt}, Thread : {ThreadId}, Message : {Message}, Exception : {Exception}},{NewLine}";
         #endregion
 
         #region Methods
