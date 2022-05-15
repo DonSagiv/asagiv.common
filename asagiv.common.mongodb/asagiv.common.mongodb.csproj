@@ -4,7 +4,7 @@
 		<TargetFramework>net6</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageId>asagiv.common.mongodb</PackageId>
-		<Version>0.0.4</Version>
+		<Version>0.0.5</Version>
 		<!-- 
 		<VersionPrefix>0.0.4</VersionPrefix>
 		-->
