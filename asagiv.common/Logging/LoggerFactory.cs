@@ -1,8 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Serilog.Debugging;
 using Serilog.Events;
 using Serilog.Formatting.Json;
+using System;
+using System.Diagnostics;
+using System.IO;
 
 namespace asagiv.common.Logging
 {
@@ -10,16 +14,29 @@ namespace asagiv.common.Logging
     {
         #region Statics
         private const string consoleOutputTemplate = "{Level:u} {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt} [{ThreadId}] {Message}{NewLine}{Exception}";
+        private const string logDirectoryName = "Logs/log-.json";
         #endregion
 
         #region Methods
         public static void UseSerilog(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddSingleton<ILogger>(CreateLogger());
+        }
+
+        public static ILogger CreateLogger()
+        {
             var loggerConfiguration = InitializeConfig()
                 .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate)
-                .WriteTo.File(new JsonFormatter(), "Logs/log-.json", rollingInterval: RollingInterval.Day);
+                .WriteTo.File(new JsonFormatter(), logDirectoryName, rollingInterval: RollingInterval.Day);
 
-            serviceCollection.AddSingleton<ILogger>(loggerConfiguration.CreateLogger());
+#if DEBUG
+            SelfLog.Enable(msg => Debug.WriteLine(msg));
+            SelfLog.Enable(Console.Error);
+#endif
+
+            var logger = loggerConfiguration.CreateLogger();
+
+            return logger;
         }
 
         private static LoggerConfiguration InitializeConfig()
@@ -31,6 +48,6 @@ namespace asagiv.common.Logging
                 .Enrich.WithMachineName()
                 .Enrich.WithThreadId();
         }
-        #endregion
+#endregion
     }
 }

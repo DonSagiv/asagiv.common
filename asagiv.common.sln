@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.common.testing", "asagiv.common.testing\asagiv.common.testing.csproj", "{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0635F824-8A26-4A0A-B2ED-D3A61B7522B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0635F824-8A26-4A0A-B2ED-D3A61B7522B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0635F824-8A26-4A0A-B2ED-D3A61B7522B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

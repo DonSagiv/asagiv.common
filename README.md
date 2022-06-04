@@ -4,6 +4,10 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.8
+
+- Add Unit Testing Libarary.
+
 ## Version 0.0.7
 
 - Add .ToAsync() to convert IEnumerable<Task<T>> to IAsyncEnumerable<T>.

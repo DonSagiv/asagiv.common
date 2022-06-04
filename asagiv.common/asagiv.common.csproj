@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageId>asagiv.common</PackageId>
-		<Version>0.0.7</Version>
+		<Version>0.0.8</Version>
 		<!-- 
 		<VersionPrefix>0.0.4</VersionPrefix>
 		-->
