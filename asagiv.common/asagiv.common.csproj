@@ -4,7 +4,7 @@
 		<TargetFramework>net6</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageId>asagiv.common</PackageId>
-		<Version>0.0.6</Version>
+		<Version>0.0.7</Version>
 		<!-- 
 		<VersionPrefix>0.0.4</VersionPrefix>
 		-->

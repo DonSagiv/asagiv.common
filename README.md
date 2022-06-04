@@ -4,6 +4,11 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.7
+
+- Add .ToAsync() to convert IEnumerable<Task<T>> to IAsyncEnumerable<T>.
+- Github Workflow -- remove publish to Nuget on pull request.
+
 ## Version 0.0.6
 
 - Add EnumerableExtensions, AddRange and RemoveRange extention methods.
