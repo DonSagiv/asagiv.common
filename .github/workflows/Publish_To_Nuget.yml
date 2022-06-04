@@ -3,8 +3,8 @@ name: Publish to Nuget
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  #pull_request:
+    #branches: [ master ]
 
 jobs:
   build:
@@ -46,4 +46,3 @@ jobs:
     # Push NuGet packages
     - name: Push to Nuget
       run: dotnet nuget push ./package/*.nupkg --source https://nuget.pkg.github.com/DonSagiv/index.json --api-key ${{ secrets.PACKAGE_PAT }}
-        

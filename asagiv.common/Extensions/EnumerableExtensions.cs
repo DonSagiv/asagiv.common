@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace asagiv.common.Extensions
 {
@@ -72,6 +74,21 @@ namespace asagiv.common.Extensions
             }
 
             sourceCollection.RemoveRange(itemsToRemove.AsEnumerable());
+        }
+
+        public static async IAsyncEnumerable<T> ToAsync<T>(this IEnumerable<Task<T>> inputTaskEnumerable, CancellationToken? cancellationToken = null)
+        {
+            using var taskEnumerator = inputTaskEnumerable.GetEnumerator();
+
+            while(taskEnumerator.MoveNext())
+            {
+                if(cancellationToken?.IsCancellationRequested == true)
+                {
+                    yield break;
+                }
+
+                yield return await taskEnumerator.Current;
+            }
         }
     }
 }
