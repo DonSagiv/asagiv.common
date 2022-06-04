@@ -4,6 +4,10 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.6
+
+- Add EnumerableExtensions, AddRange and RemoveRange extention methods.
+
 ## Version 0.0.5
 
 - Add base class for INotifyPropertyChanged implementations.

@@ -30,7 +30,7 @@ namespace asagiv.common
             {
                 return;
             }
-            
+
             // Set the field to the value.
             field = value;
 
