@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6</TargetFramework>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 		<PackageId>asagiv.common</PackageId>
-		<Version>0.0.8</Version>
+		<Version>0.0.9</Version>
 		<!-- 
 		<VersionPrefix>0.0.4</VersionPrefix>
 		-->
@@ -22,6 +22,7 @@
 	  <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
 	  <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
 	  <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+	  <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
 	  <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 	</ItemGroup>
 
