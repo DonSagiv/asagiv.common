@@ -14,22 +14,38 @@ namespace asagiv.common.Logging
     {
         #region Statics
         private const string consoleOutputTemplate = "{Level:u} {Timestamp:yyyy-MM-dd hh:mm:ss.fff tt} [{ThreadId}] {Message}{NewLine}{Exception}";
-        private const string logDirectoryName = "Logs/log-.json";
+        private const string defaultLogPath = "Logs/log-.json";
         #endregion
 
         #region Methods
-        public static void UseSerilog(this IServiceCollection serviceCollection)
+        public static void UseSerilog(this IServiceCollection serviceCollection, string loggerDirectory = null)
         {
-            serviceCollection.AddSingleton<ILogger>(CreateLogger());
+            serviceCollection.AddSingleton(CreateLogger(loggerDirectory));
         }
 
-        public static ILogger CreateLogger()
+        public static ILogger CreateLogger(string loggerDirectory)
         {
             var loggerConfiguration = InitializeConfig()
-                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate)
-                .WriteTo.File(new JsonFormatter(), logDirectoryName, rollingInterval: RollingInterval.Day);
+                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate);
+
+            if (string.IsNullOrWhiteSpace(loggerDirectory))
+            {
+                loggerConfiguration = loggerConfiguration
+                    .WriteTo.File(new JsonFormatter(), defaultLogPath, rollingInterval: RollingInterval.Day);
+            }
+            else
+            {
+                var loggerPath = Path.Combine(loggerDirectory, "log-.json");
+
+                loggerConfiguration = loggerConfiguration
+                    .WriteTo.File(new JsonFormatter(), loggerPath, rollingInterval: RollingInterval.Day);
+            }
 
 #if DEBUG
+            loggerConfiguration = loggerConfiguration
+                
+                .WriteTo.Debug(restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: consoleOutputTemplate);
+
             SelfLog.Enable(msg => Debug.WriteLine(msg));
             SelfLog.Enable(Console.Error);
 #endif
@@ -48,6 +64,6 @@ namespace asagiv.common.Logging
                 .Enrich.WithMachineName()
                 .Enrich.WithThreadId();
         }
-#endregion
+        #endregion
     }
 }

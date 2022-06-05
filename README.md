@@ -4,6 +4,11 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.9
+
+- UseSerilog() and CreateLogger() now accepts a path parameter.
+- Added Debug() sink for logs when using debug mode in Visual Studio.
+
 ## Version 0.0.8
 
 - Add Unit Testing Libarary.
