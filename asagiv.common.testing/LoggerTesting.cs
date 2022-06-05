@@ -1,7 +1,4 @@
 using asagiv.common.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Serilog;
 
 namespace asagiv.common.testing
 {

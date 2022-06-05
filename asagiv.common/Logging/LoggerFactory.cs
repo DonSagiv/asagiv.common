@@ -23,7 +23,7 @@ namespace asagiv.common.Logging
             serviceCollection.AddSingleton(CreateLogger(loggerDirectory));
         }
 
-        public static ILogger CreateLogger(string loggerDirectory)
+        public static ILogger CreateLogger(string loggerDirectory = null)
         {
             var loggerConfiguration = InitializeConfig()
                 .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate);
