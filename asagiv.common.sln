@@ -12,10 +12,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F743C48C-A3C2-4E17-AA1C-57FBCFC92E52}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\Publish_To_Nuget.yml = .github\workflows\Publish_To_Nuget.yml
+		.github\workflows\Common_Unit_Test.yml = .github\workflows\Common_Unit_Test.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.common.testing", "asagiv.common.testing\asagiv.common.testing.csproj", "{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.common.testing", "asagiv.common.testing\asagiv.common.testing.csproj", "{8B8DFB0B-7EF1-437A-AF5B-9E4D12935C73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

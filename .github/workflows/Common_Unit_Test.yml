@@ -1,11 +1,11 @@
-name: .NET Unit Test
+name: .NET Common Unit Test
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 

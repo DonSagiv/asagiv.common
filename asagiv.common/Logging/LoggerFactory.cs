@@ -26,7 +26,8 @@ namespace asagiv.common.Logging
         public static ILogger CreateLogger(string loggerDirectory = null)
         {
             var loggerConfiguration = InitializeConfig()
-                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate);
+                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate)
+                .WriteTo.Debug(restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: consoleOutputTemplate); ;
 
             if (string.IsNullOrWhiteSpace(loggerDirectory))
             {
@@ -42,10 +43,6 @@ namespace asagiv.common.Logging
             }
 
 #if DEBUG
-            loggerConfiguration = loggerConfiguration
-                
-                .WriteTo.Debug(restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: consoleOutputTemplate);
-
             SelfLog.Enable(msg => Debug.WriteLine(msg));
             SelfLog.Enable(Console.Error);
 #endif
