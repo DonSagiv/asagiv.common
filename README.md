@@ -4,6 +4,10 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.10
+
+- Move Debug() sink outside of #if DEBUG.
+
 ## Version 0.0.9
 
 - UseSerilog() and CreateLogger() now accepts a path parameter.
