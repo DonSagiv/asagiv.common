@@ -4,6 +4,11 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.11
+
+- Create "useDebug" parameter for logging.
+- When using "loggerDirectory" parameter, combine with default log directory.
+
 ## Version 0.0.10
 
 - Move Debug() sink outside of #if DEBUG.
