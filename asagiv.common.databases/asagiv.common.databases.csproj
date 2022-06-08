@@ -4,7 +4,7 @@
 		<TargetFramework>net6</TargetFramework>
 		<Nullable>enable</Nullable>
 		<PackageId>asagiv.common.databases</PackageId>
-		<Version>0.0.10</Version>
+		<Version>0.0.11</Version>
 		<!-- 
 		<VersionPrefix>0.0.4</VersionPrefix>
 		-->

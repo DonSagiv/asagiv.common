@@ -18,29 +18,27 @@ namespace asagiv.common.Logging
         #endregion
 
         #region Methods
-        public static void UseSerilog(this IServiceCollection serviceCollection, string loggerDirectory = null)
+        public static void UseSerilog(this IServiceCollection serviceCollection, string loggerDirectory = null, bool useDebug = false)
         {
             serviceCollection.AddSingleton(CreateLogger(loggerDirectory));
         }
 
-        public static ILogger CreateLogger(string loggerDirectory = null)
+        public static ILogger CreateLogger(string loggerDirectory = null, bool useDebug = false)
         {
             var loggerConfiguration = InitializeConfig()
-                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate)
-                .WriteTo.Debug(restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: consoleOutputTemplate); ;
+                .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information, outputTemplate: consoleOutputTemplate);
 
-            if (string.IsNullOrWhiteSpace(loggerDirectory))
+            if (useDebug)
             {
-                loggerConfiguration = loggerConfiguration
-                    .WriteTo.File(new JsonFormatter(), defaultLogPath, rollingInterval: RollingInterval.Day);
+                loggerConfiguration = loggerConfiguration.WriteTo.Debug(restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: consoleOutputTemplate);
             }
-            else
-            {
-                var loggerPath = Path.Combine(loggerDirectory, "log-.json");
 
-                loggerConfiguration = loggerConfiguration
-                    .WriteTo.File(new JsonFormatter(), loggerPath, rollingInterval: RollingInterval.Day);
-            }
+            var logSaveDirectory = loggerDirectory == null
+                ? defaultLogPath
+                : Path.Combine(loggerDirectory, defaultLogPath);
+
+            loggerConfiguration = loggerConfiguration
+                .WriteTo.File(new JsonFormatter(), logSaveDirectory, rollingInterval: RollingInterval.Day);
 
 #if DEBUG
             SelfLog.Enable(msg => Debug.WriteLine(msg));
@@ -48,6 +46,8 @@ namespace asagiv.common.Logging
 #endif
 
             var logger = loggerConfiguration.CreateLogger();
+
+            logger.Information("Logger Initialized.");
 
             return logger;
         }
