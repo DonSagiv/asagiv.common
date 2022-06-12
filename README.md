@@ -4,6 +4,10 @@ This repository contains common code used by Ari.
 
 # Changelog
 
+## Version 0.0.12
+
+- Remove "useDebug" parameter for logging.
+
 ## Version 0.0.11
 
 - Create "useDebug" parameter for logging.
