@@ -6,7 +6,6 @@
 		<Version>0.0.0.1</Version>
 		<PackageVersion>0.0.0.1</PackageVersion>
 		<Product>asagiv.common</Product>
-		<OutputType>dll</OutputType>
 		<RepositoryUrl>https://github.com/DonSagiv/asagiv.common</RepositoryUrl>
 		
 	</PropertyGroup>
