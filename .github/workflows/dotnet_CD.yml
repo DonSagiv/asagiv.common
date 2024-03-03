@@ -33,7 +33,7 @@ jobs:
       run: dotnet nuget add source --username DonSagiv --password ${{ secrets.NUGET_PKG_DEPLOY }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DonSagiv/index.json"
 
     - name: Pack nuget packages
-      run: dotnet pack --configuration Release --no-build /p:OutputDirectory=./packages
+      run: dotnet pack --configuration Release --no-build --output ./packages
 
     - name: List all packages
       run: ls ./packages
