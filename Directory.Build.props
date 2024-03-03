@@ -1,13 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
-	
 	<PropertyGroup>
-		
-		<Version>0.0.0.1</Version>
-		<PackageVersion>0.0.0.1</PackageVersion>
+		<Version>0.0.0.2</Version>
+		<PackageVersion>0.0.0.2</PackageVersion>
 		<Product>asagiv.common</Product>
 		<RepositoryUrl>https://github.com/DonSagiv/asagiv.common</RepositoryUrl>
-		
 	</PropertyGroup>
-	
 </Project>
