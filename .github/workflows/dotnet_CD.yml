@@ -16,14 +16,15 @@ jobs:
 
     steps:
     
-    - uses: actions/checkout@v4
+    - name: Setup Checkout
+      uses: actions/checkout@v4
     
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
         
-    - name: Restore dependencies
+    - name: Restore Dependencies
       run: dotnet restore
       
     - name: Build
@@ -32,8 +33,11 @@ jobs:
     - name: Add Github Nuget Source
       run: dotnet nuget add source --username DonSagiv --password ${{ secrets.NUGET_PKG_DEPLOY }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DonSagiv/index.json"
 
-    - name: Pack nuget packages
+    - name: Pack NuGet Packages
       run: dotnet pack --configuration Release --no-build --output ./packages
 
     - name: List all packages
       run: ls ./packages
+
+    - name: Publish NuGet packages
+      run: dotnet nuget push ./packages/*.nupkg --source "github"
