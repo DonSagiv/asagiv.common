@@ -7,11 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B6544DE1-A42
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Domain", "asagiv.Domain", "{E1F908E8-3172-4FB6-9819-6533AFE4BFC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Domain.Core", "src\asagiv.Domain\asagiv.Domain.Core\asagiv.Domain.Core.csproj", "{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Domain.Core", "src\asagiv.Domain\asagiv.Domain.Core\asagiv.Domain.Core.csproj", "{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Appl", "asagiv.Appl", "{50D37D07-9AB3-40BF-AC02-EEF5ABE38583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Appl.Core", "src\asagiv.Appl\asagiv.Appl.Core\asagiv.Appl.Core.csproj", "{72D0077D-F92E-4FA4-B71F-F29AB30C8887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Appl.Core", "src\asagiv.Appl\asagiv.Appl.Core\asagiv.Appl.Core.csproj", "{72D0077D-F92E-4FA4-B71F-F29AB30C8887}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56CE8351-C80E-4704-A993-686DD48E65BF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
