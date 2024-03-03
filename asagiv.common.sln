@@ -15,18 +15,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Appl.Core", "src\asa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56CE8351-C80E-4704-A993-686DD48E65BF}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
 		.github\workflows\dotnet_CI.yml = .github\workflows\dotnet_CI.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Infrastructure", "asagiv.Infrastructure", "{639CC594-1838-4045-9CBB-DFCF8C552B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Infrastructure.Logging.Serilog", "src\asagiv.Infrastructure\asagiv.Infrastructure.Logging.Serilog\asagiv.Infrastructure.Logging.Serilog.csproj", "{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Infrastructure.Logging.Serilog", "src\asagiv.Infrastructure\asagiv.Infrastructure.Logging.Serilog\asagiv.Infrastructure.Logging.Serilog.csproj", "{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{81EC8DAF-2389-440F-9CF7-56F2BE236AE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Domain.Tests", "asagiv.Domain.Tests", "{49AAE216-A6DE-427F-856F-07F3ADA8FCD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Domain.Core.Tests", "tests\asagiv.Domain.Tests\asagiv.Domain.Core.Tests\asagiv.Domain.Core.Tests.csproj", "{4132AED6-DDBF-4C23-9810-8EADF83DA717}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Domain.Core.Tests", "tests\asagiv.Domain.Tests\asagiv.Domain.Core.Tests\asagiv.Domain.Core.Tests.csproj", "{4132AED6-DDBF-4C23-9810-8EADF83DA717}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
