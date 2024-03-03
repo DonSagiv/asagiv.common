@@ -1,9 +1,9 @@
-name: asagiv.common CI
+name: asagiv.common CD
 
 on:
 
   push:
-    branches: [ "master" ]
+    branches: [ "master", "CD_Nuget_Implementation" ]
     
   pull_request:
     branches: [ "master" ]
@@ -29,5 +29,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Add Github Nuget Source
+      run: dotnet nuget add source --username DonSagiv --password ${{ secrets.NUGET_PKG_DEPLOY }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DonSagiv/index.json"

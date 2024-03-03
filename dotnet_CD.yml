@@ -1,0 +1,36 @@
+name: asagiv.common CI
+
+on:
+
+  push:
+    branches: [ "master", "CD_Nuget_Implementation" ]
+    
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  Build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: Create Packages
+      run: dotnet pack --no-build --configuration Release
+
+    - name: Add Package Source
+      run: dotnet nuget add source --username DonSagiv --password ${{secrets.NUGET_PKG_DEPLOY}} --name github "https://nuget.pkg.github.com/DonSagiv/index.json"
