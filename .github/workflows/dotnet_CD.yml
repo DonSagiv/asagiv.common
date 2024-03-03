@@ -23,16 +23,19 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        
+      
+    # Restore and build
     - name: Restore Dependencies
       run: dotnet restore
       
     - name: Build
       run: dotnet build --no-restore --configuration Release
       
+    # Log into Github's NuGet package manager
     - name: Add Github Nuget Source
       run: dotnet nuget add source --username DonSagiv --password ${{ secrets.NUGET_PKG_DEPLOY }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/DonSagiv/index.json"
 
+    # Pack and publish NuGet packages
     - name: Pack NuGet Packages
       run: dotnet pack --configuration Release --no-build --output ./packages
 
@@ -41,3 +44,5 @@ jobs:
 
     - name: Publish NuGet packages
       run: dotnet nuget push ./packages/*.nupkg --source "github" --api-key ${{ secrets.API_KEY }}
+
+    # To consume packages, see following: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-add-source
