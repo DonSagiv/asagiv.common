@@ -7,7 +7,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B6544DE1-A42
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Domain", "asagiv.Domain", "{E1F908E8-3172-4FB6-9819-6533AFE4BFC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Domain.Core", "src\asagiv.Domain\asagiv.Domain.Core\asagiv.Domain.Core.csproj", "{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Domain.Core", "src\asagiv.Domain\asagiv.Domain.Core\asagiv.Domain.Core.csproj", "{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Appl", "asagiv.Appl", "{50D37D07-9AB3-40BF-AC02-EEF5ABE38583}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asagiv.Appl.Core", "src\asagiv.Appl\asagiv.Appl.Core\asagiv.Appl.Core.csproj", "{72D0077D-F92E-4FA4-B71F-F29AB30C8887}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56CE8351-C80E-4704-A993-686DD48E65BF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet_CI.yml = .github\workflows\dotnet_CI.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Infrastructure", "asagiv.Infrastructure", "{639CC594-1838-4045-9CBB-DFCF8C552B5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Infrastructure.Logging.Serilog", "src\asagiv.Infrastructure\asagiv.Infrastructure.Logging.Serilog\asagiv.Infrastructure.Logging.Serilog.csproj", "{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{81EC8DAF-2389-440F-9CF7-56F2BE236AE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "asagiv.Domain.Tests", "asagiv.Domain.Tests", "{49AAE216-A6DE-427F-856F-07F3ADA8FCD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asagiv.Domain.Core.Tests", "tests\asagiv.Domain.Tests\asagiv.Domain.Core.Tests\asagiv.Domain.Core.Tests.csproj", "{4132AED6-DDBF-4C23-9810-8EADF83DA717}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +38,18 @@ Global
 		{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D0077D-F92E-4FA4-B71F-F29AB30C8887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D0077D-F92E-4FA4-B71F-F29AB30C8887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D0077D-F92E-4FA4-B71F-F29AB30C8887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D0077D-F92E-4FA4-B71F-F29AB30C8887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4132AED6-DDBF-4C23-9810-8EADF83DA717}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4132AED6-DDBF-4C23-9810-8EADF83DA717}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4132AED6-DDBF-4C23-9810-8EADF83DA717}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4132AED6-DDBF-4C23-9810-8EADF83DA717}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,6 +57,12 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E1F908E8-3172-4FB6-9819-6533AFE4BFC9} = {B6544DE1-A42E-43E3-AA3D-00BE96CE3A1C}
 		{9FC625B5-A6A2-4718-BFBE-3B4CCF958E0F} = {E1F908E8-3172-4FB6-9819-6533AFE4BFC9}
+		{50D37D07-9AB3-40BF-AC02-EEF5ABE38583} = {B6544DE1-A42E-43E3-AA3D-00BE96CE3A1C}
+		{72D0077D-F92E-4FA4-B71F-F29AB30C8887} = {50D37D07-9AB3-40BF-AC02-EEF5ABE38583}
+		{639CC594-1838-4045-9CBB-DFCF8C552B5E} = {B6544DE1-A42E-43E3-AA3D-00BE96CE3A1C}
+		{8ACBCC44-15E3-4F1E-A876-F2B07EA48B84} = {639CC594-1838-4045-9CBB-DFCF8C552B5E}
+		{49AAE216-A6DE-427F-856F-07F3ADA8FCD4} = {81EC8DAF-2389-440F-9CF7-56F2BE236AE5}
+		{4132AED6-DDBF-4C23-9810-8EADF83DA717} = {49AAE216-A6DE-427F-856F-07F3ADA8FCD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF96EFB0-5476-454F-8B9F-8F2D22862C63}
