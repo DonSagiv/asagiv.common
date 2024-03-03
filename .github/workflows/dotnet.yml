@@ -6,7 +6,7 @@ name: .NET
 on:
 
   push:
-    branches: [ "master", "CI_CI_Development" ]
+    branches: [ "master", "CI_CD_Development" ]
     
   pull_request:
     branches: [ "master" ]
